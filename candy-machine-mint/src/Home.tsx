@@ -32,33 +32,42 @@ const CounterText = styled.span`
 
 const MintContainer = styled.div`
     width: 400px;
-    margin: 0 auto 0 auto
+    background: blue;
+    margin: 0 auto 0 auto;
+    display: grid;
+    justify-content: center;
+    text-align: center;
+`; // add your styles here
+
+const MintButton = styled(Button)`
+    width: 200px;
 `; // add your styles here
 
 const WalletContainer = styled.div`
+
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    margin: 0 auto 0 auto
+    margin: 50px auto 0 auto;
+
 `;
 
 const WalletBalanceValue = styled.div`
     font-size: 21px;
     text-align: center;
-    margin: 0 auto 0 auto
+    margin: 0 auto 0 auto;
+
 `;
 
 const WalletAddressValue = styled.div`
     font-size: 21px;
-    margin: 0 auto 0 auto
+    margin: 0 auto 0 auto;
 `;
 
-const MintButton = styled(Button)`
-    margin: 0;
-`; // add your styles here
+
 
 const StatsContainer = styled.div`
-    width: 1000px;
+    
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
@@ -247,7 +256,7 @@ const Home = (props: HomeProps) => {
               <WalletAddressValue>{shortenAddress(wallet.publicKey.toBase58() || "")}</WalletAddressValue>
               <WalletBalanceValue>{"~" + balance?.toFixed(3) + " SOL"}</WalletBalanceValue>
               <MintContainer>
-                    <MintButton
+                    <MintButton 
                         disabled={isSoldOut || isMinting || !isActive}
                         onClick={onMint}
                         variant="contained">
@@ -257,7 +266,7 @@ const Home = (props: HomeProps) => {
                             isMinting ? (
                                 <CircularProgress />
                             ) : (
-                                "MINT"
+                                "MINT @ 1 SOL"
                             )
                         ) : (
                             <Countdown
@@ -274,8 +283,9 @@ const Home = (props: HomeProps) => {
           }
 
           {!wallet &&
-          <ConnectButton>Connect Wallet</ConnectButton>
-          
+              <ConnectButtonContainer>
+                <ConnectButton>Connect Wallet</ConnectButton>
+              </ConnectButtonContainer>
           }
 
       
