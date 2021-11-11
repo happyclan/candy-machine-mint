@@ -19,13 +19,69 @@ import {
   shortenAddress,
 } from "./candy-machine";
 
-const ConnectButton = styled(WalletDialogButton)``;
+const ConnectButtonContainer = styled.div`
 
-const CounterText = styled.span``; // add your styles here
+`;
 
-const MintContainer = styled.div``; // add your styles here
+const ConnectButton = styled(WalletDialogButton)`
+`;
 
-const MintButton = styled(Button)``; // add your styles here
+const CounterText = styled.span`
+
+`; // add your styles here
+
+const MintContainer = styled.div`
+    width: 400px;
+    margin: 0 auto 0 auto
+`; // add your styles here
+
+const WalletContainer = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    margin: 0 auto 0 auto
+`;
+
+const WalletBalanceValue = styled.div`
+    font-size: 21px;
+    text-align: center;
+    margin: 0 auto 0 auto
+`;
+
+const WalletAddressValue = styled.div`
+    font-size: 21px;
+    margin: 0 auto 0 auto
+`;
+
+const MintButton = styled(Button)`
+    margin: 0;
+`; // add your styles here
+
+const StatsContainer = styled.div`
+    width: 1000px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    row-gap: 10px;
+    column-gap: 0px;
+`;
+
+const StatLabel = styled.div`
+    width: 400px;
+    margin: 0 0 0 auto;
+    font-size: 32px;
+    text-align: right;
+    background: green;
+`; // add your styles here
+
+const StatValue = styled.div`
+    width: 400px;
+    margin: 0 0 0 0;
+    font-size: 32px;
+    margin: 0;
+    text-align: center;
+    background: yellow;
+`; // add your styles here
 
 export interface HomeProps {
   candyMachineId: anchor.web3.PublicKey;
@@ -105,7 +161,7 @@ const Home = (props: HomeProps) => {
         if (!status?.err) {
           setAlertState({
             open: true,
-            message: "Congratulations! Mint succeeded!",
+            message: "Success! Welcome to Solana Nation",
             severity: "success",
           });
         } else {
@@ -124,7 +180,7 @@ const Home = (props: HomeProps) => {
         } else if (error.message.indexOf("0x137")) {
           message = `SOLD OUT!`;
         } else if (error.message.indexOf("0x135")) {
-          message = `Insufficient funds to mint. Please fund your wallet.`;
+          message = `Not classy.  You don't have enough SOL.`;
         }
       } else {
         if (error.code === 311) {
@@ -165,48 +221,64 @@ const Home = (props: HomeProps) => {
     props.connection,
   ]);
 
+
+
   return (
     <main>
-      {wallet && (
-        <p>Wallet {shortenAddress(wallet.publicKey.toBase58() || "")}</p>
-      )}
+     
+          {wallet && 
+          <StatsContainer>
 
-      {wallet && <p>Balance: {(balance || 0).toLocaleString()} SOL</p>}
+              <StatLabel>Total Alpha Series Promos:</StatLabel>
+              <StatValue>{itemsAvailable}</StatValue>
 
-      {wallet && <p>Total Available: {itemsAvailable}</p>}
+              <StatLabel>Total Claimed:</StatLabel>
+              <StatValue>{itemsRedeemed}</StatValue>
 
-      {wallet && <p>Redeemed: {itemsRedeemed}</p>}
+              <StatLabel>How Many Left:</StatLabel>
+              <StatValue>{itemsRemaining}</StatValue>
 
-      {wallet && <p>Remaining: {itemsRemaining}</p>}
+          </StatsContainer>
+          
+          }
 
-      <MintContainer>
-        {!wallet ? (
+          {wallet &&
+          <WalletContainer>
+              <WalletAddressValue>{shortenAddress(wallet.publicKey.toBase58() || "")}</WalletAddressValue>
+              <WalletBalanceValue>{"~" + balance?.toFixed(3) + " SOL"}</WalletBalanceValue>
+              <MintContainer>
+                    <MintButton
+                        disabled={isSoldOut || isMinting || !isActive}
+                        onClick={onMint}
+                        variant="contained">
+                        {isSoldOut ? (
+                            "SOLD OUT"
+                        ) : isActive ? (
+                            isMinting ? (
+                                <CircularProgress />
+                            ) : (
+                                "MINT"
+                            )
+                        ) : (
+                            <Countdown
+                                date={startDate}
+                                onMount={({ completed }) => completed && setIsActive(true)}
+                                onComplete={() => setIsActive(true)}
+                                renderer={renderCounter}
+                            />
+                        )}
+                    </MintButton>
+
+              </MintContainer>
+          </WalletContainer>
+          }
+
+          {!wallet &&
           <ConnectButton>Connect Wallet</ConnectButton>
-        ) : (
-          <MintButton
-            disabled={isSoldOut || isMinting || !isActive}
-            onClick={onMint}
-            variant="contained"
-          >
-            {isSoldOut ? (
-              "SOLD OUT"
-            ) : isActive ? (
-              isMinting ? (
-                <CircularProgress />
-              ) : (
-                "MINT"
-              )
-            ) : (
-              <Countdown
-                date={startDate}
-                onMount={({ completed }) => completed && setIsActive(true)}
-                onComplete={() => setIsActive(true)}
-                renderer={renderCounter}
-              />
-            )}
-          </MintButton>
-        )}
-      </MintContainer>
+          
+          }
+
+      
 
       <Snackbar
         open={alertState.open}
