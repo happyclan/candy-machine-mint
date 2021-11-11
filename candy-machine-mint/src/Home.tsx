@@ -68,13 +68,11 @@ const WalletBalanceValue = styled.div`
 
 const WalletAddressValue = styled.div`
     font-size: 21px;
-    font-weight: bold;
     margin: 0 auto 0 auto;
 `;
 
 
 const StatsContainer = styled.div`
-    
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
@@ -87,12 +85,11 @@ const StatLabel = styled.div`
     width: 400px;
     margin: 0 0 0 auto;
     font-size: 32px;
-    font-weight: bold;
     text-align: right;
 `; // add your styles here
 
 const StatValue = styled.div`
-    width: 400px;
+    width: 200px;
     margin: 0 0 0 0;
     font-size: 32px;
     font-family: Raleway;
@@ -262,7 +259,7 @@ const Home = (props: HomeProps) => {
           {wallet &&
           <WalletContainer>
               <WalletAddressValue>{shortenAddress(wallet.publicKey.toBase58() || "")}</WalletAddressValue>
-              <WalletBalanceValue>{"~" + balance?.toFixed(3) + " SOL"}</WalletBalanceValue>
+              <WalletBalanceValue>{"Balance: ~" + balance?.toFixed(3) + " SOL"}</WalletBalanceValue>
               <MintContainer>
                     <MintButton 
                         disabled={isSoldOut || isMinting || !isActive}
