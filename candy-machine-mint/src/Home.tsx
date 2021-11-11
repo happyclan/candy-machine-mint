@@ -42,7 +42,6 @@ const CounterText = styled.span`
 
 const MintContainer = styled.div`
     width: 400px;
-    background: blue;
     margin: 0 auto 0 auto;
     display: grid;
     justify-content: center;
@@ -58,7 +57,7 @@ const WalletContainer = styled.div`
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     margin: 50px auto 0 auto;
-    font-family: Cinzel;
+    font-family: Raleway;
 `;
 
 const WalletBalanceValue = styled.div`
@@ -69,9 +68,9 @@ const WalletBalanceValue = styled.div`
 
 const WalletAddressValue = styled.div`
     font-size: 21px;
+    font-weight: bold;
     margin: 0 auto 0 auto;
 `;
-
 
 
 const StatsContainer = styled.div`
@@ -81,24 +80,24 @@ const StatsContainer = styled.div`
     grid-template-rows: 1fr 1fr;
     row-gap: 10px;
     column-gap: 0px;
-font-family: Cinzel;
+    font-family: Cinzel;
 `;
 
 const StatLabel = styled.div`
     width: 400px;
     margin: 0 0 0 auto;
     font-size: 32px;
+    font-weight: bold;
     text-align: right;
-    background: green;
 `; // add your styles here
 
 const StatValue = styled.div`
     width: 400px;
     margin: 0 0 0 0;
     font-size: 32px;
+    font-family: Raleway;
     margin: 0;
     text-align: center;
-    background: yellow;
 `; // add your styles here
 
 export interface HomeProps {
@@ -198,7 +197,7 @@ const Home = (props: HomeProps) => {
         } else if (error.message.indexOf("0x137")) {
           message = `SOLD OUT!`;
         } else if (error.message.indexOf("0x135")) {
-          message = `Not classy.  You don't have enough SOL.`;
+          message = `Classy.  You don't have enough SOL.`;
         }
       } else {
         if (error.code === 311) {
