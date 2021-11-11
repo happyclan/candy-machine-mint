@@ -20,10 +20,20 @@ import {
 } from "./candy-machine";
 
 const ConnectButtonContainer = styled.div`
+    
+
+    margin: 0 auto 0 auto;
+    padding: 100px;
+    display: grid;
+    grid-template-rows: 1;
+    grid-template-columns: 1;
+    justify-content: center;
+    text-align: center;
 
 `;
 
 const ConnectButton = styled(WalletDialogButton)`
+    width: 400px;
 `;
 
 const CounterText = styled.span`
@@ -44,19 +54,17 @@ const MintButton = styled(Button)`
 `; // add your styles here
 
 const WalletContainer = styled.div`
-
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     margin: 50px auto 0 auto;
-
+    font-family: Cinzel;
 `;
 
 const WalletBalanceValue = styled.div`
     font-size: 21px;
     text-align: center;
     margin: 0 auto 0 auto;
-
 `;
 
 const WalletAddressValue = styled.div`
@@ -73,6 +81,7 @@ const StatsContainer = styled.div`
     grid-template-rows: 1fr 1fr;
     row-gap: 10px;
     column-gap: 0px;
+font-family: Cinzel;
 `;
 
 const StatLabel = styled.div`
@@ -238,13 +247,13 @@ const Home = (props: HomeProps) => {
           {wallet && 
           <StatsContainer>
 
-              <StatLabel>Total Alpha Series Promos:</StatLabel>
+              <StatLabel>Total Numbers in Series</StatLabel>
               <StatValue>{itemsAvailable}</StatValue>
 
-              <StatLabel>Total Claimed:</StatLabel>
+              <StatLabel>Total Claimed</StatLabel>
               <StatValue>{itemsRedeemed}</StatValue>
 
-              <StatLabel>How Many Left:</StatLabel>
+              <StatLabel>How Many Left</StatLabel>
               <StatValue>{itemsRemaining}</StatValue>
 
           </StatsContainer>
