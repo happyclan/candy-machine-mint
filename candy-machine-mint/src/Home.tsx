@@ -86,12 +86,13 @@ const StatLabel = styled.div`
     margin: 0 0 0 auto;
     font-size: 32px;
     text-align: right;
+    font-family: Cinzel;
 `; // add your styles here
 
 const StatValue = styled.div`
     width: 200px;
     margin: 0 0 0 0;
-    font-size: 32px;
+    font-size: 30px;
     font-family: Raleway;
     margin: 0;
     text-align: center;
