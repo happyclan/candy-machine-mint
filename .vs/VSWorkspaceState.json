@@ -1,11 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\candy-machine-mint",
-    "\\candy-machine-mint\\public",
-    "\\candy-machine-mint\\src",
-    "\\candy-machine-mint\\ssn-candy-machine-mint"
+    ""
   ],
-  "SelectedNode": "\\candy-machine-mint\\deploy_candy.sh",
+  "SelectedNode": "\\ssn-candy-machine-mint.sln",
   "PreviewInSolutionExplorer": false
 }
